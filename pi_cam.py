@@ -1,11 +1,13 @@
 import cv2, time
 from datetime import datetime
-import pandas as pd
+import pandas
 import csv
 
 first_frame=None
 status_list=[None,None]
 times=[]
+df=pandas.DataFrame(columns=["Start","End"])
+
 video=cv2.VideoCapture(0)
 
 while True:
@@ -56,13 +58,20 @@ while True:
 print(status_list)
 print(times)
 
-while True:
-    with open('motion capture time.csv','w',newline='') as csv_file:
-        fieldnames=times[0]
-        writer=csv.DictWriter(csv_file, fieldnames=fieldnames)
+for i in range(0,len(times),2):
+    df=df.append({"Start":times[i],"End":times[i+1]},ignore_index=True)
 
-        writer.writerow({'year':times[0][0],'day':times[0][1],'hour':times[0][2],'minutes':times[0][3]})
-        print(csv_file)
+df.to_csv("motion capture time.csv")
+
+# My attempt at puting the datetime values into a csv file.
+
+# while True:
+#     with open('motion capture time.csv','w',newline='') as csv_file:
+#         fieldnames=times[0]
+#         writer=csv.DictWriter(csv_file, fieldnames=fieldnames)
+#
+#         writer.writerow({'year':times[0][0],'day':times[0][1],'hour':times[0][2],'minutes':times[0][3]})
+#         print(csv_file)
 
 video.release()
 cv2.destroyAllWindows()
