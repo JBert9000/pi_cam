@@ -61,7 +61,7 @@ while True:
         fieldnames=times[0]
         writer=csv.DictWriter(csv_file, fieldnames=fieldnames)
 
-        writer.writerow({'year':times[0],'day':times[1],'hour':times[2],'minutes':times[3]})
+        writer.writerow({'year':times[0][0],'day':times[0][1],'hour':times[0][2],'minutes':times[0][3]})
         print(csv_file)
 
 video.release()
