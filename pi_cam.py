@@ -1,5 +1,7 @@
 import cv2, time
 from datetime import datetime
+import pandas as pd
+import csv
 
 first_frame=None
 status_list=[None,None]
@@ -54,6 +56,13 @@ while True:
 print(status_list)
 print(times)
 
+while True:
+    with open('motion capture time.csv','w',newline='') as csv_file:
+        fieldnames=times[0]
+        writer=csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writerow({'year':times[0],'day':times[1],'hour':times[2],'minutes':times[3]})
+        print(csv_file)
 
 video.release()
 cv2.destroyAllWindows()
