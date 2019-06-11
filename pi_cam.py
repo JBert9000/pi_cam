@@ -22,7 +22,7 @@ while True:
 
     delta_frame=cv2.absdiff(first_frame,gray)
 
-    thresh_frame=cv2.threshold(delta_frame,30,255,cv2.THRESH_BINARY)[1]
+    thresh_frame=cv2.threshold(delta_frame,70,255,cv2.THRESH_BINARY)[1]
     thresh_frame=cv2.dilate(thresh_frame,None,iterations=2)
 
     cnts=cv2.findContours(thresh_frame.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)[0]
